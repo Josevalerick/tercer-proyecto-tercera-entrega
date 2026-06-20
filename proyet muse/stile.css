@@ -1,0 +1,851 @@
+/* ==========================================================================
+   1. VARIABLES Y ESTILOS BASE (Estructura global de la página)
+   ========================================================================== */
+   body { 
+    background: linear-gradient(135deg, #560461, #000000); 
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    /* Fuente pixel aplicada al resto de las letras */
+    font-family: "Bitcount Grid Double", "Courier New", monospace;
+    font-weight: 400;
+    position: relative;    
+}
+
+/* Cursors personalizados aplicados de manera limpia */
+.song-card, button, #playBtn, #prevBtn, #nextBtn, #loopBtn, #shuffleBtn {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill:%23ff007f;"><text y="20" font-size="20">✨</text></svg>'), pointer;
+}
+
+/* Personaje de fondo */
+.background-character {
+    position: fixed; 
+    top: 0;
+    left: 0; 
+    width: 50vw; 
+    height: 100vh; 
+    background-image: url('taver-removebg-preview.png'); 
+    background-repeat: no-repeat;
+    background-position: left center; 
+    background-size: 100%; 
+    filter: blur(4px) brightness(45%); 
+    opacity: 0.85; 
+    mix-blend-mode: lighten; 
+    z-index: -1; 
+    pointer-events: none; 
+}
+
+/* ==========================================================================
+   2. CABECERA (Top Header y elementos de búsqueda/autenticación)
+   ========================================================================== */
+.top-header {
+    position: fixed;
+    top: 0;   
+    left: 0;
+    width: 100%;          
+    height: 75px;          
+    background: linear-gradient(90deg, #1f022b, #85047a); 
+    box-shadow: 0 2px 15px rgba(255, 0, 127, 0.4);
+    z-index: 20;          
+}
+
+/* Nuevo Logo de Texto con Efecto Neón Fluorescente */
+.logo-text {
+    position: fixed;       
+    top: 18px;                
+    left: 30px;            
+    margin: 0;
+    /* Fuente pixel asignada al título principal */
+    font-family: "Bitcount Prop Single", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 700; 
+    font-style: normal;
+    font-variation-settings: "slnt" 0, "CRSV" 0.5, "ELSH" 0, "ELXP" 0;
+    
+    font-size: 1.8rem;
+    color: #ffffff; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    z-index: 25;
+    
+    /* Efecto neón fluorescente */
+    text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #ff007f,
+        0 0 20px #ff007f,
+        0 0 40px #85047a;
+}
+
+.search-container {
+    position: fixed;       
+    top: 10px;            
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 450px;     
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    padding: 6px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.15); 
+    border-radius: 50px; 
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease; 
+}
+
+.search-icon {
+    font-size: 0.95rem;
+    margin-right: 10px;  
+    opacity: 0.6;        
+    color: white;
+}
+
+#searchInput {
+    background: transparent;  
+    border: none;          
+    outline: none;           
+    width: 100%;              
+    color: #ffffff;         
+    font-family: inherit;     
+    font-size: 0.95rem;
+}
+
+#searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.5); 
+}
+
+.search-container:focus-within {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(238, 7, 226, 0.753);
+    box-shadow: 0 0 12px rgba(255, 0, 127, 0.25);
+}
+
+.search-container:focus-within .search-icon {
+    opacity: 0.9;         
+}
+
+.header-right-controls {
+    position: fixed;
+    top: 15px;
+    right: 80px;
+    display: flex;
+    align-items: center;
+    gap: 32px; 
+    z-index: 20; 
+}
+
+.auth-btn {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-register {
+    color: rgba(255, 255, 255, 0.7); 
+}
+
+.btn-register:hover {
+    color: #fff; 
+    transform: scale(1.04);
+}
+
+.btn-login {
+    background-color: #ffffff; 
+    color: #000000;           
+    padding: 12px 28px;        
+    border-radius: 50px;     
+}
+
+.btn-login:hover {
+    transform: scale(1.04);    
+    background-color: #f6f6f6; 
+}
+
+/* ==========================================================================
+   3. MENÚ NAVEGACIÓN (Hamburguesa & Sidebar)
+   ========================================================================== */
+.menu-btn {
+    position: fixed;       
+    top: 25px;             
+    right: 25px;
+    width: 30px;
+    height: 22px;              
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: none;
+    border: none;
+    z-index: 150; 
+}
+
+.menu-btn .bar {
+    width: 100%;
+    height: 4px;
+    background-color: white; 
+    border-radius: 2px;
+    transition: all 0.3s ease; 
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -280px; 
+    width: 280px;
+    height: 100vh;
+    background: rgba(20, 18, 26, 0.98); 
+    backdrop-filter: blur(10px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 80px; 
+    z-index: 130; 
+    transition: right 0.4s cubic-bezier(0.1, 0.8, 0.3, 1); 
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(4px); 
+    z-index: 120; 
+    opacity: 0;
+    pointer-events: none; 
+    transition: opacity 0.4s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    pointer-events: auto; 
+}
+
+.menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 30px;
+}
+
+.menu-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+}
+
+.menu-links a:hover {
+    opacity: 1;
+    color: #ff007f; 
+    transform: translateX(5px); 
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+.menu-btn.active .bar {
+    background-color: #ff007f; 
+    box-shadow: 0 0 8px #ff007f; 
+}
+
+.menu-btn.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);  
+}
+
+.menu-btn.active .bar:nth-child(2) {
+    opacity: 0; 
+}
+
+.menu-btn.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg); 
+}
+
+/* ==========================================================================
+   4. CONTENIDO PRINCIPAL (Carrusel de biblioteca de música)
+   ========================================================================== */
+.main-content {
+    width: 100%;
+}
+
+.music-section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 100px auto 40px auto; 
+    position: relative;
+    color: white;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: left;
+    color: #fff;
+    text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f; 
+}
+
+.songs-carousel {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto; 
+    scroll-behavior: smooth; 
+    padding: 10px 5px;
+}
+
+.songs-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.song-card {
+    min-width: 160px;
+    max-width: 160px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 14px;
+    border-radius: 12px;
+    text-align: left;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.song-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 0 20px #ff007f, 0 0 40px #1f022b;
+}
+
+.card-img-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    margin-bottom: 12px;
+}
+
+.card-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-play-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ff007f; 
+    border: none;
+    color: white;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s ease;
+}
+
+.song-card:hover .card-play-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-play-btn:hover {
+    transform: scale(1.08);
+    background: #ff3399;
+}
+
+.song-card h3 {
+    font-size: 0.95rem;
+    margin: 0 0 6px 0;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-card p {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carousel-arrow {
+    position: absolute;   
+    top: 55%; 
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(20, 18, 26, 0.85); 
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 15; 
+    opacity: 0; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.music-section:hover .carousel-arrow {
+    opacity: 1;
+}
+
+.arrow-left {
+    left: -22px; 
+    padding-right: 4px;
+}
+
+.arrow-right {
+    right: -22px; 
+    padding-left: 4px;
+}
+
+.carousel-arrow:hover {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   5. REPRODUCTOR INFERIOR FIXED (Player Bar)
+   ========================================================================== */
+.player-card {
+    position: fixed;
+    bottom: 20px;         
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 750px;     
+    height: 85px;          
+    background: rgba(20, 18, 26, 0.75); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    z-index: 100;        
+}
+
+.track-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 30%;           
+}
+
+.album-cover {
+    width: 52px;         
+    height: 52px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;       
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.album-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.song-details {
+    text-align: left;      
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+}
+
+.song-title {
+    font-size: 0.95rem;
+    margin: 0;
+    font-weight: 500;
+    color: #fff;
+}
+
+.song-artist {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 4px 0 0 0;
+}
+
+.player-center-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    gap: 8px;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    color: white;
+}
+
+.btn-shuffle {
+    color: rgba(255, 255, 255, 0.5); 
+    margin-right: 10px; 
+}
+
+.btn-shuffle:hover {
+    color: #ff007f; 
+    transform: scale(1.15);
+}
+
+.btn-shuffle:active {
+    transform: scale(0.95);
+}
+
+.btn-loop {
+    color: rgba(255, 255, 255, 0.5); 
+    margin-left: 10px; 
+}
+
+.btn-loop:hover {
+    color: white;
+    transform: scale(1.15);
+}
+
+.btn-loop.active {
+    color: #ff007f;
+    text-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
+}
+
+.btn-loop:active {
+    transform: scale(0.95);
+}
+
+.play-main {
+    font-size: 1.1rem;
+    color: black;
+    background: white;    
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.play-main:hover {
+    transform: scale(1.06);
+    background: #ff007f;   
+    color: white;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.time-stamp {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.4);
+    min-width: 28px;
+}
+
+.progress-rail {
+    flex-grow: 1;         
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    position: relative;
+}
+
+.progress-bar {
+    width: 0%;           
+    height: 100%;
+    background: rgb(255, 0, 212);    
+    border-radius: 2px;
+    transition: width 0.2s linear;
+}
+
+.progress-rail:hover .progress-bar {
+    background: #ff007f;
+}
+
+/* ==========================================================================
+   6. VENTANA MODAL (Login Form)
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200; 
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-card {
+    background: #181622;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    color: white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.1, 0.8, 0.3, 1);
+}
+
+.modal-overlay.active .modal-card {
+    transform: scale(1);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.8rem;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: white;
+}
+
+.modal-card h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.8rem;
+}
+
+.modal-card p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.input-group input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: white;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #ff007f;
+}
+
+.btn-submit {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 14px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: transform 0.2s;
+}
+
+.btn-submit:hover {
+    transform: scale(1.02);
+    background: #f6f6f6;
+}
+
+/* ==========================================================================
+   7. PANEL LATERAL DE LA BIBLIOTECA (Estilo Spotify Neón)
+   ========================================================================== */
+.sidebar-library {
+    position: fixed;
+    top: 0;
+    left: -320px; 
+    width: 320px;
+    height: 100vh;
+    background: rgba(15, 12, 20, 0.98); 
+    backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255, 0, 127, 0.2); 
+    padding: 80px 20px 20px 20px;
+    box-sizing: border-box;
+    z-index: 140; 
+    transition: left 0.4s cubic-bezier(0.1, 0.8, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar-library.active {
+    left: 0;
+}
+
+.library-header h2 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 0 0 10px 0;
+    text-shadow: 0 0 8px #ff007f;
+}
+
+.close-library-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 0, 127, 0.3);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.close-library-btn:hover {
+    background: #ff007f;
+    box-shadow: 0 0 8px #ff007f;
+}
+
+.library-songs-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 5px;
+}
+
+.library-songs-list::-webkit-scrollbar {
+    width: 4px;
+}
+.library-songs-list::-webkit-scrollbar-thumb {
+    background: #ff007f;
+    border-radius: 10px;
+}
+
+.empty-library-msg {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 40px;
+    line-height: 1.4;
+}
+
+.library-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+}
+
+.library-item:hover {
+    background: rgba(255, 0, 127, 0.1);
+    border-color: #ff007f;
+    transform: translateX(4px);
+}
+
+.library-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.library-item-details {
+    flex-grow: 1;
+    overflow: hidden;
+    text-align: left;
+}
+
+.library-item-title {
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.library-item-artist {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    margin: 2px 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.library-item, .close-library-btn {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill:%23ff007f;"><text y="20" font-size="20">✨</text></svg>'), pointer;
+}

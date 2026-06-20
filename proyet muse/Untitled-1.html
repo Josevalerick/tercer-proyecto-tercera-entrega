@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyet muse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Bitcount+Prop+Single:wght@100..900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="stile.css">
+</head>
+<body>
+    <audio id="mainAudio"></audio>
+    <div class="background-character"></div>
+
+   <header class="top-header">
+        <h1 class="logo-text">Pmuse</h1>
+
+        <div class="search-container">
+            <span class="search-icon">🔍︎</span> 
+            <input type="text" id="searchInput" placeholder="Busca tus canciones... (｡♥‿♥｡)">
+        </div>
+
+        <div class="header-right-controls">  
+            <button class="auth-btn btn-register">Registrarse</button>
+            <button class="auth-btn btn-login">Iniciar sesión</button>
+        </div>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <nav class="menu-links">
+            <a href="#">⌂ Inicio</a>
+            <a href="#">🔍︎ Buscar</a>
+            <a href="#" id="openLibraryBtn">📚 Tu Biblioteca</a>
+            <a href="#">⚙ Ajustes</a>
+        </nav>
+    </aside>
+
+    <aside class="sidebar-library" id="sidebarLibrary">
+        <div class="library-header">
+            <h2>Mis Canciones Guardadas    (｡♥‿♥｡)</h2>
+            <button class="close-library-btn" id="closeLibraryBtn">◀ Volver</button>
+        </div>
+        <div class="library-songs-list" id="librarySongsList">
+            <p class="empty-library-msg">Aún no has agregado canciones. ¡Haz clic en una para sumarla! 🎵</p>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main-content">
+        <section class="music-section">
+            <div class="section-header">
+                <h2>✨ Canciones destacadas (✧ω✧)</h2>
+            </div> 
+
+            <div class="songs-carousel" id="songsCarousel">
+                <div class="song-card" data-title="Execution Clap" data-artist="Trap Chick" data-img="Execution Clap(TRAP CHICK).jpg" data-audio="canciones/Execution Clap.mp3">
+                    <div class="card-img-container">
+                         <img src="Execution Clap(TRAP CHICK).jpg" alt="Portada">
+                         <button class="card-play-btn" aria-label="Reproducir">▶</button>
+                    </div>
+                    <h3>Execution Clap</h3>
+                    <p>Trap Chick</p>
+                </div>
+
+                <div class="song-card" data-title="your idol" data-artist="Saja Boys" data-img="descarga (1).jpg" data-audio="canciones/Saja Boys - Your Idol (Lyrics) KPop Demon Hunters [5QIQ5QHqDbw].mp3">
+                    <div class="card-img-container"> 
+                        <img src="descarga (1).jpg" alt="Portada">
+                        <button class="card-play-btn" aria-label="Reproducir">▶</button>
+                    </div>
+                    <h3>your idol</h3>
+                    <p>Saja Boys</p>
+                </div>
+
+                <div class="song-card" data-title="oseewaa" data-artist="ado" data-img="descarga.jpg" data-audio="canciones/Ado [Qp3b-RXtz4w].mp3">
+                    <div class="card-img-container">
+                        <img src="descarga.jpg" alt="Portada">
+                        <button class="card-play-btn" aria-label="Reproducir">▶</button>
+                    </div>
+                    <h3>useewaa</h3>
+                    <p>ado</p>
+                </div>
+
+                <div class="song-card" data-title="Dinamite" data-artist="BTS" data-img="Dynamite (DayTime Version) - BTS Digital Single (2020).jpg" data-audio="canciones/BTS 'Dynamite' Official MV [gdZLi9oWNZg].mp3">
+                    <div class="card-img-container">
+                        <img src="Dynamite (DayTime Version) - BTS Digital Single (2020).jpg" alt="Portada">
+                        <button class="card-play-btn" aria-label="Reproducir">▶</button>
+                    </div>
+                    <h3>Dinamite</h3>
+                    <p>BTS</p>
+                </div>
+
+                <div class="song-card" data-title="Gravity Hazbin Hotel" data-artist="David Delgado" data-img="Gravity Hazbin Hotel Fan Art V2 Sticker.jpg" data-audio="canciones/GRAVITY - Hazbin Hotel _ Cover Español Latino _ Male Cover _ Lute & Adam Song _ David Delgado [X4VLwzvkSSk].mp3">
+                    <div class="card-img-container">
+                        <img src="Gravity Hazbin Hotel Fan Art V2 Sticker.jpg" alt="Portada">
+                        <button class="card-play-btn" aria-label="Reproducir">▶</button>
+                    </div>
+                    <h3>Gravity Hazbin Hotel</h3>
+                    <p>David Delgado</p>
+                </div>
+
+                <div class="song-card" data-title="Bling Bang Bang Born" data-artist="Creepy Nuts" data-img="Mashle Bling Bang Bang Born Dance Poster.jpg" data-audio="canciones/Creepy Nuts｢Bling-Bang-Bang-Born｣ MASHLE-｣.mp3">
+                    <div class="card-img-container">
+                        <img src="Mashle Bling Bang Bang Born Dance Poster.jpg" alt="Portada">
+                        <button class="card-play-btn" aria-label="Reproducir">▶</button>
+                    </div>
+                    <h3>Bling Bang Bang Born</h3>
+                    <p>Creepy Nuts</p>
+                </div>
+
+                <div class="song-card" data-title="Poison Hazbin Hotel" data-artist="ChemyNoSurfea" data-img="Poison (Hazbin Hotel Original Soundtrack) - Single by Blake Roman _ Spotify.jpg" data-audio="canciones/POISON  HAZBIN HOTEL  FULL SONG  SEASON 1 EPISODE 4.mp3">
+                    <div class="card-img-container">
+                        <img src="Poison (Hazbin Hotel Original Soundtrack) - Single by Blake Roman _ Spotify.jpg" alt="Portada">
+                        <button class="card-play-btn" aria-label="Reproducir">▶</button>
+                    </div>
+                    <h3>Poison Hazbin Hotel</h3>
+                    <p>ChemyNoSurfea</p>
+                </div>
+
+                <div class="song-card" data-title="Black in Black" data-artist="AC DC" data-img="ac dc.jpg" data-audio="canciones/ACDC - Back In Black (Official Video).mp3">
+                    <div class="card-img-container">
+                        <img src="ac dc.jpg" alt="Portada">
+                        <button class="card-play-btn" aria-label="Reproducir">▶</button>
+                    </div>
+                    <h3>Black in Black</h3>
+                    <p>AC DC</p>
+                </div>
+            </div>
+
+            <button class="carousel-arrow arrow-left" id="prevCardBtn" aria-label="Ver canciones anteriores">‹</button>
+            <button class="carousel-arrow arrow-right" id="nextCardBtn" aria-label="Ver siguientes canciones">›</button>
+        </section>
+    </main>
+
+    <footer class="player-card">
+        <div class="track-info">
+            <div class="album-cover">
+                <img src="imagen d.jpg" alt="Portada del álbum">
+            </div>
+            <div class="song-details">
+                <h2 class="song-title">proyet muse</h2>
+                <p class="song-artist">Music Mode: ON ᐠ( ᐛ )ᐟ</p>
+            </div>
+        </div>
+
+        <div class="player-center-controls">
+            <div class="player-controls">
+                <button class="control-btn btn-shuffle" id="shuffleBtn" aria-label="Canción aleatoria">🎲(𖦹_𖦹)</button>
+                <button class="control-btn" id="prevBtn" aria-label="Anterior">⏮</button>
+                <button class="control-btn play-main" id="playBtn" aria-label="Reproducir">▶</button>
+                <button class="control-btn" id="nextBtn" aria-label="Siguiente">⏭</button>
+                <button class="control-btn btn-loop" id="loopBtn" aria-label="Repetir canción">(🔄•̀ᴗ•́)و</button>
+            </div>
+            
+            <div class="progress-container">
+                <span class="time-stamp">0:00</span>
+                <div class="progress-rail">
+                    <div class="progress-bar"></div>
+                </div>
+                <span class="time-stamp">3:45</span>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-card">
+            <button class="close-modal" id="closeModal">(✖╭╮✖)</button>
+            <h2>Iniciar sesión (｡♥‿♥｡)</h2>
+            <p>Introduce tus datos para ingresar a tu cuenta.</p>
+            
+            <form class="modal-form">
+                <div class="input-group">
+                    <label for="modalUser">Usuario o Correo</label>
+                    <input type="text" id="modalUser" placeholder="Ej: neon_voyager" required>
+                </div>
+                <div class="input-group">
+                    <label for="modalPass">Contraseña</label>
+                    <input type="password" id="modalPass" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-submit">Ingresar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="funcion.js"></script>
+</body>
+</html>
